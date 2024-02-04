@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-import { ethers } from "ethers";
-
 import { useState } from "react";
 
-export default function Extensions(props) {
+export default function Extensions() {
   const [tokenPerWallet, setTokenPerWallet] = useState(false);
   const [LPtax, setLPtax] = useState(false);
   const [devTax, setDevTax] = useState(false);
@@ -27,43 +25,6 @@ export default function Extensions(props) {
   const maxTransactionAmountChange = (event) => {
     console.log(event.target.value);
     setMaxTransactionAmount((current) => !current);
-  };
-
-  const deploy = async () => {
-    // Connect to your Ethereum provider
-    const provider = new ethers.providers.JsonRpcProvider(
-      "9153af587dc24275b774051cfafaf727",
-    );
-
-    // Your Ethereum wallet private key
-    const privateKey =
-      "98e67f9fb39dcfcf785e8be45d9b476028a380bfe473531f12231b9f2147efc4";
-
-    // Create a wallet from the private key
-    const wallet = new ethers.Wallet(privateKey, provider);
-
-    const contractSource = `
-      // Your Solidity contract code here
-      pragma solidity ^0.8.0;
-
-      contract SimpleStorage {
-          uint256 public data;
-
-          function setData(uint256 _data) public {
-              data = _data;
-          }
-      }
-    `;
-
-    // Compile the contract
-    const factory = new ethers.ContractFactory(contractSource, "", wallet);
-    const contract = await factory.deploy();
-
-    // Wait for the contract to be mined
-    await contract.deployed();
-
-    // Log contract address
-    console.log("Contract deployed to:", contract.address);
   };
 
   return (
@@ -198,7 +159,6 @@ export default function Extensions(props) {
           )}
         </div>
       </div>
-      <button onClick={deploy}>click a w9</button>
     </>
   );
 }
