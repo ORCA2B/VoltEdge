@@ -57,7 +57,6 @@ export default function Main() {
       // Get the current connected account
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const currentAccount = await signer.getAddress();
 
       // Compile the Solidity source code
       const compiledContract = compile(YourContractSourceCode);

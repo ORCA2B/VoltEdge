@@ -9,10 +9,10 @@
 
 @font-face {
   font-family: VoltEdge;
-  src: url("fonts/VoltEdge.ttf");
+  src: url("./public/fonts/VoltEdge.ttf");
 }
 
 @font-face {
   font-family: JetBrainsMedium;
-  src: url("fonts/JetBrains Font/JetBrainsMono-Medium.ttf");
+  src: url("./public/fonts/JetBrains Font/JetBrainsMono-Medium.ttf");
 }
