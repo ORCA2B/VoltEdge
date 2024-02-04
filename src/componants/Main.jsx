@@ -1,6 +1,7 @@
-import Extensions from "./Extensions";
-
 import { useState } from "react";
+import { ethers } from "ethers";
+
+import Extensions from "./Extensions";
 
 export default function Main() {
   const [account, setAccount] = useState(null);
