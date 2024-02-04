@@ -1,14 +1,9 @@
-import { ethers } from "ethers";
-import { compile } from "solc";
-
 import Extensions from "./Extensions";
 
 import { useState } from "react";
 
 export default function Main() {
   const [account, setAccount] = useState(null);
-  const [deployedContractAddress, setDeployedContractAddress] = useState("");
-  const [error, setError] = useState("");
 
   const tokenDetails = {
     name: "",
@@ -18,23 +13,6 @@ export default function Main() {
     chain: "",
     decimals: 0,
   };
-
-  const YourContractSourceCode = `
-  // SPDX-License-Identifier: MIT
-
-  pragma solidity ^0.8.0;
-
-  contract SimpleStorage {
-      string private storedMessage;
-
-      function setMessage(string memory _message) public {
-          storedMessage = _message;
-      }
-
-      function getMessage() public view returns (string memory) {
-          return storedMessage;
-      }
-  }﻿`;
 
   const connectMetamask = async () => {
     try {
@@ -49,41 +27,6 @@ export default function Main() {
       setAccount(currentAccount);
     } catch (error) {
       console.error("Error connecting to Metamask:", error.message);
-    }
-  };
-
-  const deployTokenContract = async () => {
-    try {
-      // Get the current connected account
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-
-      // Compile the Solidity source code
-      const compiledContract = compile(YourContractSourceCode);
-      const contractBytecode = `0x${compiledContract.contracts[":YourContract"].bytecode}`;
-
-      // Create a contract factory
-      const contractFactory = new ethers.ContractFactory(
-        [],
-        contractBytecode,
-        signer,
-      );
-
-      // Deploy the contract
-      const deployedContract = await contractFactory.deploy();
-
-      // Wait for the contract to be mined and get the deployment transaction receipt
-      const deploymentReceipt = await deployedContract.deployTransaction.wait();
-
-      // Update state with the deployed contract address
-      setDeployedContractAddress(deployedContract.address);
-
-      // Log deployment information
-      console.log("Contract deployed to address:", deployedContract.address);
-      console.log("Transaction hash:", deploymentReceipt.transactionHash);
-    } catch (err) {
-      setError("Error deploying contract. Check the console for more details.");
-      console.error(err);
     }
   };
 
@@ -227,19 +170,6 @@ export default function Main() {
           </div>
         </div>
       </main>
-      <div>
-        <h1>Token Deployer</h1>
-        <button onClick={deployTokenContract}>Deploy Token Contract</button>
-
-        {deployedContractAddress && (
-          <div>
-            <h2>Contract Deployed!</h2>
-            <p>Contract Address: {deployedContractAddress}</p>
-          </div>
-        )}
-
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </div>
     </>
   );
 }
