@@ -1,8 +1,19 @@
-import { useState } from "react";
 import { ethers } from "ethers";
+
+import Extensions from "./Extensions";
+
+import { useState } from "react";
 
 export default function Main() {
   const [account, setAccount] = useState(null);
+  const tokenDetails = {
+    name: "",
+    symbol: "",
+    description: "",
+    supply: 0,
+    chain: "",
+    decimals: 0,
+  };
 
   const connectMetamask = async () => {
     try {
@@ -19,12 +30,37 @@ export default function Main() {
       console.error("Error connecting to Metamask:", error.message);
     }
   };
+
+  const nameChange = (event) => {
+    tokenDetails.name = event.target.value;
+  };
+
+  const symbolChange = (event) => {
+    tokenDetails.symbol = event.target.value;
+  };
+
+  const descriptionChange = (event) => {
+    tokenDetails.description = event.target.value;
+  };
+
+  const supplyChange = (event) => {
+    tokenDetails.supply = event.target.value;
+  };
+
+  const chainChange = (event) => {
+    tokenDetails.chain = event.target.value;
+  };
+
+  const decimalsChange = (event) => {
+    tokenDetails.decimals = event.target.value;
+  };
+
   return (
     <>
-      <header className="flex items-center justify-between w-full border-b-[0.5px] border-[#fffaf4] h-[3.2rem] px-4">
+      <header className="flex h-[3.2rem] w-full items-center justify-between border-b-[0.5px] border-[#fffaf4] px-4">
         <div className="">LOGO</div>
 
-        <button onClick={connectMetamask} className="bg-[#864AF9] py-2 px-3">
+        <button onClick={connectMetamask} className="bg-[#864AF9] px-3 py-2">
           {account
             ? `${account.slice(0, 6)}...${account.slice(-4)}`
             : "Connect"}
@@ -33,22 +69,26 @@ export default function Main() {
       <main>
         <div>
           <div>
-            <h1 className="text-5xl font-VoltEdge">Token Creator</h1>
+            <h1 className="font-VoltEdge text-5xl">Token Creator</h1>
           </div>
-          <div className="text-xl font-VoltEdge">ERC20 token creator</div>
+          <div className="font-VoltEdge text-xl">ERC20 token creator</div>
         </div>
-        <div className="flex items-center justify-center w-full">
-          <div className="w-[92%] flex justify-between">
-            <div className="border-[0.2px] w-[49.2%] px-5 pb-6">
+        <div className="flex w-full items-center justify-center">
+          <div className="flex w-[92%] justify-between">
+            <div className="w-[49.2%] border-[0.2px] px-5 pb-6">
               <div className="">
-                <div className="text-[25px] font-VoltEdge my-2">Details</div>
+                <div className="font-VoltEdge my-2 text-[25px]">Details</div>
 
                 {/* name & symbol */}
                 <div className="flex justify-between">
                   <div className="w-1/2">
                     <div className="font-JetBrainsMedium">Name*</div>
                     <div>
-                      <input type="text" className="bg-[#343A40] h-8 w-[96%]" />
+                      <input
+                        type="text"
+                        onChange={nameChange}
+                        className="h-8 w-[96%] bg-[#343A40]"
+                      />
                     </div>
                   </div>
                   <div className="w-1/2">
@@ -56,7 +96,8 @@ export default function Main() {
                     <div>
                       <input
                         type="text"
-                        className="bg-[#343A40] h-8 w-[100%]"
+                        onChange={symbolChange}
+                        className="h-8 w-[100%] bg-[#343A40]"
                       />
                     </div>
                   </div>
@@ -69,7 +110,8 @@ export default function Main() {
                     <div>
                       <input
                         type="number"
-                        className="bg-[#343A40] h-8 w-[96%]"
+                        onChange={supplyChange}
+                        className="h-8 w-[96%] bg-[#343A40]"
                       />
                     </div>
                   </div>
@@ -79,7 +121,8 @@ export default function Main() {
                     <div>
                       <input
                         type="number"
-                        className="bg-[#343A40] h-8 w-[100%] font-JetBrainsMedium"
+                        onChange={decimalsChange}
+                        className="font-JetBrainsMedium h-8 w-[100%] bg-[#343A40]"
                         defaultValue={9}
                       />
                     </div>
@@ -92,7 +135,8 @@ export default function Main() {
                   <div>
                     <textarea
                       type="text"
-                      className="bg-[#343A40] h-8 w-[100%]"
+                      onChange={descriptionChange}
+                      className="h-8 w-[100%] bg-[#343A40]"
                     />
                   </div>
                 </div>
@@ -104,7 +148,8 @@ export default function Main() {
                     <select
                       name="chain"
                       id="chain"
-                      className="bg-[#343A40] font-JetBrainsMedium h-7 rounded-md pl-1"
+                      className="font-JetBrainsMedium h-7 rounded-md bg-[#343A40] pl-1"
+                      onChange={chainChange}
                     >
                       <option value="Ethereum">Ethereum</option>
                       <option value="Binance Smart Chain">
@@ -118,20 +163,11 @@ export default function Main() {
                   </div>
                 </div>
 
-                <div className="w-full mt-3 border-b-2"></div>
-              </div>
-
-              {/* extensions */}
-              <div>
-                <div className="flex">
-                  <div>
-                    <input type="checkbox" name="" id="" />
-                  </div>
-                  <div>Max Tokens Per Wallet</div>
-                </div>
+                <div className="mt-3 w-full border-b-2"></div>
+                <Extensions tokenDetails={tokenDetails} />
               </div>
             </div>
-            <div className="border-[0.2px] h-32 w-[49.2%]"></div>
+            <div className="h-32 w-[49.2%] border-[0.2px]"></div>
           </div>
         </div>
       </main>
