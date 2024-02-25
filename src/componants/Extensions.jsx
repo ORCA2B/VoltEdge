@@ -1,34 +1,117 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function Extensions() {
-  const [tokenPerWallet, setTokenPerWallet] = useState(false);
-  const [LPtax, setLPtax] = useState(false);
-  const [devTax, setDevTax] = useState(false);
-  const [maxTransactionAmount, setMaxTransactionAmount] = useState(false);
+export default function Extensions(props) {
+  const [input, setInput] = useState({
+    MaxTokensPerWallet: false,
+    LiquidityTax: false,
+    DeveloperTax: false,
+    MaxTransactionAmount: false,
+  });
 
-  const tokenPerWalletChange = (event) => {
-    console.log(event.target.value);
-    setTokenPerWallet((current) => !current);
+  const tokenDetails = props.tokenDetails;
+  // const tokenDetails = {
+  //   name: "",
+  //   symbol: "",
+  //   description: "",
+  //   supply: 0,
+  //   chain: "",
+  //   decimals: 0,
+  // };
+
+  const handleCheckboxChange = (event) => {
+    const checkboxId = event.target.id;
+    const isChecked = event.target.checked;
+    console.log(`${checkboxId}: ${isChecked}`);
+
+    if (MaxTransactionAmount === false) {
+      tokenDetails.MaxTransactionAmount = tokenDetails.supply;
+    }
+
+    if (MaxTokensPerWallet === false) {
+      tokenDetails.MaxTokensPerWallet = tokenDetails.supply;
+    }
+
+    if (checkboxId === "MaxTokensPerWallet" && isChecked === true) {
+      setInput((prevState) => ({
+        ...prevState,
+        MaxTokensPerWallet: true,
+      }));
+    } else if (checkboxId === "MaxTokensPerWallet" && isChecked === false) {
+      setInput((prevState) => ({
+        ...prevState,
+        MaxTokensPerWallet: false,
+      }));
+      tokenDetails.MaxTokensPerWallet = tokenDetails.supply;
+    }
+
+    if (checkboxId === "LiquidityTax" && isChecked === true) {
+      setInput((prevState) => ({
+        ...prevState,
+        LiquidityTax: true,
+      }));
+    } else if (checkboxId === "LiquidityTax" && isChecked === false) {
+      setInput((prevState) => ({
+        ...prevState,
+        LiquidityTax: false,
+      }));
+    }
+
+    if (checkboxId === "DeveloperTax" && isChecked === true) {
+      setInput((prevState) => ({
+        ...prevState,
+        DeveloperTax: true,
+      }));
+    } else if (checkboxId === "DeveloperTax" && isChecked === false) {
+      setInput((prevState) => ({
+        ...prevState,
+        DeveloperTax: false,
+      }));
+    }
+
+    if (checkboxId === "MaxTransactionAmount" && isChecked === true) {
+      setInput((prevState) => ({
+        ...prevState,
+        MaxTransactionAmount: true,
+      }));
+    } else if (checkboxId === "MaxTransactionAmount" && isChecked === false) {
+      setInput((prevState) => ({
+        ...prevState,
+        MaxTransactionAmount: false,
+      }));
+      tokenDetails.MaxTransactionAmount = tokenDetails.supply;
+    }
   };
 
-  const feesChange = (event) => {
-    console.log(event.target.value);
-    setLPtax((current) => !current);
+  const MaxTokensPerWalletValue = (event) => {
+    tokenDetails.MaxTokensPerWallet = event.target.value;
   };
 
-  const devfeesChange = (event) => {
-    console.log(event.target.value);
-    setDevTax((current) => !current);
+  const buyLPValue = (event) => {
+    tokenDetails.buyLPValue = event.target.value;
   };
 
-  const maxTransactionAmountChange = (event) => {
-    console.log(event.target.value);
-    setMaxTransactionAmount((current) => !current);
+  const sellLPValue = (event) => {
+    tokenDetails.sellLPValue = event.target.value;
   };
 
+  const buyDevTAX = (event) => {
+    tokenDetails.buyDevTAX = event.target.value;
+  };
+
+  const sellDevTAX = (event) => {
+    tokenDetails.sellDevTAX = event.target.value;
+  };
+
+  const MaxTransactionAmount = (event) => {
+    tokenDetails.MaxTransactionAmount = event.target.value;
+  };
+
+  function show() {
+    console.log(tokenDetails);
+  }
   return (
     <>
+      <button onClick={show}>show</button>
       {/* extensions */}
       <div>
         {/* token per wallet */}
@@ -37,20 +120,20 @@ export default function Extensions() {
             <div>
               <input
                 type="checkbox"
-                name=""
-                id="MTPW"
-                value={tokenPerWallet}
-                onChange={tokenPerWalletChange}
+                className="mr-2 h-full w-[70%]"
+                id="MaxTokensPerWallet"
+                onChange={handleCheckboxChange}
               />
             </div>
             <div>Max Tokens Per Wallet</div>
           </div>
-          {tokenPerWallet && (
+          {input.MaxTokensPerWallet && (
             <div>
               <div>
                 <input
                   type="number"
                   className="font-JetBrainsMedium h-8 w-[100%] bg-[#343A40]"
+                  onChange={MaxTokensPerWalletValue}
                   defaultValue={9}
                 />
               </div>
@@ -64,20 +147,23 @@ export default function Extensions() {
             <div>
               <input
                 type="checkbox"
-                name=""
-                id="MTPW"
-                value={LPtax}
-                onChange={feesChange}
+                className="mr-2 h-full w-[70%]"
+                id="LiquidityTax"
+                onChange={handleCheckboxChange}
               />
             </div>
             <div>Liquidity Tax</div>
           </div>
-          {LPtax && (
+          {input.LiquidityTax && (
             <div className="flex justify-between">
               <div className="w-1/2">
                 <div className="font-JetBrainsMedium">Buy Liquidity Tax*</div>
                 <div>
-                  <input type="number" className="h-8 w-[96%] bg-[#343A40]" />
+                  <input
+                    type="number"
+                    className="h-8 w-[96%] bg-[#343A40]"
+                    onChange={buyLPValue}
+                  />
                 </div>
               </div>
 
@@ -87,7 +173,7 @@ export default function Extensions() {
                   <input
                     type="number"
                     className="font-JetBrainsMedium h-8 w-[100%] bg-[#343A40]"
-                    defaultValue={9}
+                    onChange={sellLPValue}
                   />
                 </div>
               </div>
@@ -101,20 +187,23 @@ export default function Extensions() {
             <div>
               <input
                 type="checkbox"
-                name=""
-                id="MTPW"
-                value={devTax}
-                onChange={devfeesChange}
+                className="mr-2 h-full w-[70%]"
+                id="DeveloperTax"
+                onChange={handleCheckboxChange}
               />
             </div>
             <div>Developer Tax</div>
           </div>
-          {devTax && (
+          {input.DeveloperTax && (
             <div className="flex justify-between">
               <div className="w-1/2">
                 <div className="font-JetBrainsMedium">Buy Developer Tax*</div>
                 <div>
-                  <input type="number" className="h-8 w-[96%] bg-[#343A40]" />
+                  <input
+                    type="number"
+                    className="h-8 w-[96%] bg-[#343A40]"
+                    onChange={buyDevTAX}
+                  />
                 </div>
               </div>
 
@@ -125,6 +214,7 @@ export default function Extensions() {
                     type="number"
                     className="font-JetBrainsMedium h-8 w-[100%] bg-[#343A40]"
                     defaultValue={9}
+                    onChange={sellDevTAX}
                   />
                 </div>
               </div>
@@ -138,21 +228,21 @@ export default function Extensions() {
             <div>
               <input
                 type="checkbox"
-                name=""
-                id="MTPW"
-                value={maxTransactionAmount}
-                onChange={maxTransactionAmountChange}
+                className="mr-2 h-full w-[70%]"
+                id="MaxTransactionAmount"
+                onChange={handleCheckboxChange}
               />
             </div>
             <div>Max Transaction Amount</div>
           </div>
-          {maxTransactionAmount && (
+          {input.MaxTransactionAmount && (
             <div>
               <div>
                 <input
                   type="number"
                   className="font-JetBrainsMedium h-8 w-[100%] bg-[#343A40]"
                   defaultValue={9}
+                  onChange={MaxTransactionAmount}
                 />
               </div>
             </div>

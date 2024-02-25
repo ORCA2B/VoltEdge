@@ -11,8 +11,14 @@ export default function Main() {
     symbol: "",
     description: "",
     supply: 0,
-    chain: "",
+    chain: "Ethereum",
     decimals: 0,
+    sellDevTAX: 0,
+    buyDevTAX: 0,
+    sellLPValue: 0,
+    buyLPValue: 0,
+    MaxTokensPerWallet: 0,
+    MaxTransactionAmount: 0,
   };
 
   const connectMetamask = async () => {
@@ -44,7 +50,7 @@ export default function Main() {
   };
 
   const supplyChange = (event) => {
-    tokenDetails.supply = event.target.value;
+    tokenDetails.supply = Number(event.target.value);
   };
 
   const chainChange = (event) => {
@@ -52,7 +58,7 @@ export default function Main() {
   };
 
   const decimalsChange = (event) => {
-    tokenDetails.decimals = event.target.value;
+    tokenDetails.decimals = Number(event.target.value);
   };
 
   return (
