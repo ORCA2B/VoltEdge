@@ -7,18 +7,18 @@ export default function Main() {
   const [account, setAccount] = useState(null);
 
   const tokenDetails = {
-    name: "",
-    symbol: "",
-    description: "",
-    supply: 0,
+    name: null,
+    symbol: null,
+    description: null,
+    supply: null,
     chain: "Ethereum",
-    decimals: 0,
-    sellDevTAX: 0,
-    buyDevTAX: 0,
-    sellLPValue: 0,
-    buyLPValue: 0,
-    MaxTokensPerWallet: 0,
-    MaxTransactionAmount: 0,
+    decimals: null,
+    sellDevTAX: null,
+    buyDevTAX: null,
+    sellLPValue: null,
+    buyLPValue: null,
+    MaxTokensPerWallet: null,
+    MaxTransactionAmount: null,
   };
 
   const connectMetamask = async () => {
