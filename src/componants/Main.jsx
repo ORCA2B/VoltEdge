@@ -6,20 +6,31 @@ import Extensions from "./Extensions";
 export default function Main() {
   const [account, setAccount] = useState(null);
 
-  const tokenDetails = {
-    name: null,
-    symbol: null,
-    description: null,
-    supply: null,
-    chain: "Ethereum",
-    decimals: null,
-    sellDevTAX: null,
-    buyDevTAX: null,
-    sellLPValue: null,
-    buyLPValue: null,
-    MaxTokensPerWallet: null,
-    MaxTransactionAmount: null,
-  };
+  // const tokenDetails = {
+  //   name: null,
+  //   symbol: null,
+  //   description: null,
+  //   supply: null,
+  //   chain: "Ethereum",
+  //   decimals: null,
+  //   sellDevTAX: null,
+  //   buyDevTAX: null,
+  //   sellLPValue: null,
+  //   buyLPValue: null,
+  //   MaxTokensPerWallet: null,
+  //   MaxTransactionAmount: null,
+  // };
+
+  const name = null;
+  const symbol = null;
+  const description = null;
+  const supply = null;
+  const chain = null;
+  const decimals = null;
+  const sellDevTAX = null;
+  const buyDevTAX = null;
+  const sellLPValue = null;
+  const buyLPValue = null;
 
   const connectMetamask = async () => {
     try {
@@ -170,7 +181,18 @@ export default function Main() {
                 </div>
 
                 <div className="mt-3 w-full border-b-2"></div>
-                <Extensions tokenDetails={tokenDetails} />
+                <Extensions
+                  name={name}
+                  symbol={symbol}
+                  sellDevTAX={sellDevTAX}
+                  sellLPValue={sellLPValue}
+                  buyDevTAX={buyDevTAX}
+                  buyLPValue={buyLPValue}
+                  description={description}
+                  chain={chain}
+                  supply={supply}
+                  decimals={decimals}
+                />
               </div>
             </div>
             <div className="h-32 w-[49.2%] border-[0.2px]"></div>

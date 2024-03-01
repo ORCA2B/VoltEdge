@@ -8,15 +8,18 @@ export default function Extensions(props) {
     MaxTransactionAmount: false,
   });
 
-  const tokenDetails = props.tokenDetails;
-  // const tokenDetails = {
-  //   name: "",
-  //   symbol: "",
-  //   description: "",
-  //   supply: 0,
-  //   chain: "",
-  //   decimals: 0,
-  // };
+  const tokenDetails = {
+    name: props.name,
+    symbol: props.symbol,
+    description: props.description,
+    supply: props.supply,
+    chain: props.chain,
+    decimals: props.decimals,
+    sellDevTAX: props.sellDevTAX,
+    buyDevTAX: props.buyDevTAX,
+    sellLPValue: props.sellLPValue,
+    buyLPValue: props.buyLPValue,
+  };
 
   const handleCheckboxChange = (event) => {
     const checkboxId = event.target.id;
@@ -110,14 +113,12 @@ export default function Extensions(props) {
   }
 
   if (input.MaxTransactionAmount === true) {
-    tokenDetails.MaxTransactionAmount = tokenDetails.supply;
+    const MaxTransactionAmountValue = tokenDetails.supply;
+    tokenDetails.push(MaxTransactionAmountValue);
   }
 
   function show() {
-    console.log(
-      tokenDetails.MaxTokensPerWallet,
-      tokenDetails.MaxTransactionAmount
-    );
+    console.log(tokenDetails);
   }
   return (
     <>
