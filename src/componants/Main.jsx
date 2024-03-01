@@ -6,38 +6,21 @@ import Extensions from "./Extensions";
 export default function Main() {
   const [account, setAccount] = useState(null);
 
-  // const tokenDetails = {
-  //   name: null,
-  //   symbol: null,
-  //   description: null,
-  //   supply: null,
-  //   chain: "Ethereum",
-  //   decimals: null,
-  //   sellDevTAX: null,
-  //   buyDevTAX: null,
-  //   sellLPValue: null,
-  //   buyLPValue: null,
-  //   MaxTokensPerWallet: null,
-  //   MaxTransactionAmount: null,
-  // };
-
-  const name = null;
-  const symbol = null;
-  const description = null;
-  const supply = null;
-  const chain = null;
-  const decimals = null;
-  const sellDevTAX = null;
-  const buyDevTAX = null;
-  const sellLPValue = null;
-  const buyLPValue = null;
+  let name,
+    symbol,
+    description,
+    supply,
+    chain,
+    decimals,
+    sellDevTAX,
+    buyDevTAX,
+    sellLPValue,
+    buyLPValue;
 
   const connectMetamask = async () => {
     try {
-      // Request account access if needed
       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-      // Get the current connected account
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const currentAccount = await signer.getAddress();
@@ -49,27 +32,27 @@ export default function Main() {
   };
 
   const nameChange = (event) => {
-    tokenDetails.name = event.target.value;
+    name = event.target.value;
   };
 
   const symbolChange = (event) => {
-    tokenDetails.symbol = event.target.value;
+    symbol = event.target.value;
   };
 
   const descriptionChange = (event) => {
-    tokenDetails.description = event.target.value;
+    description = event.target.value;
   };
 
   const supplyChange = (event) => {
-    tokenDetails.supply = Number(event.target.value);
+    supply = Number(event.target.value);
   };
 
   const chainChange = (event) => {
-    tokenDetails.chain = event.target.value;
+    chain = event.target.value;
   };
 
   const decimalsChange = (event) => {
-    tokenDetails.decimals = Number(event.target.value);
+    decimals = Number(event.target.value);
   };
 
   return (

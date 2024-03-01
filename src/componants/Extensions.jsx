@@ -19,20 +19,14 @@ export default function Extensions(props) {
     buyDevTAX: props.buyDevTAX,
     sellLPValue: props.sellLPValue,
     buyLPValue: props.buyLPValue,
+    maxTokenPerWalletValue: null,
+    maxTransactionAmountValue: null,
   };
 
   const handleCheckboxChange = (event) => {
     const checkboxId = event.target.id;
     const isChecked = event.target.checked;
     console.log(`${checkboxId}: ${isChecked}`);
-
-    if (MaxTransactionAmount === false) {
-      tokenDetails.MaxTransactionAmount = tokenDetails.supply;
-    }
-
-    if (MaxTokensPerWallet === false) {
-      tokenDetails.MaxTokensPerWallet = tokenDetails.supply;
-    }
 
     if (checkboxId === "MaxTokensPerWallet" && isChecked === true) {
       setInput((prevState) => ({
@@ -80,12 +74,11 @@ export default function Extensions(props) {
         ...prevState,
         MaxTransactionAmount: false,
       }));
-      tokenDetails.MaxTransactionAmount = tokenDetails.supply;
     }
   };
 
   const MaxTokensPerWalletValue = (event) => {
-    tokenDetails.MaxTokensPerWallet = event.target.value;
+    tokenDetails.maxTokenPerWalletValue = event.target.value;
   };
 
   const buyLPValue = (event) => {
@@ -105,16 +98,15 @@ export default function Extensions(props) {
   };
 
   const MaxTransactionAmount = (event) => {
-    tokenDetails.MaxTransactionAmount = event.target.value;
+    tokenDetails.maxTransactionAmountValue = event.target.value;
   };
 
-  if (input.MaxTokensPerWallet === true) {
-    tokenDetails.MaxTokensPerWallet = tokenDetails.supply;
+  if (input.MaxTokensPerWallet === false) {
+    tokenDetails.maxTokenPerWalletValue = tokenDetails.supply;
   }
 
-  if (input.MaxTransactionAmount === true) {
-    const MaxTransactionAmountValue = tokenDetails.supply;
-    tokenDetails.push(MaxTransactionAmountValue);
+  if (input.MaxTransactionAmount === false) {
+    tokenDetails.maxTransactionAmountValue = tokenDetails.supply;
   }
 
   function show() {
