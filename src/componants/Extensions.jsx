@@ -41,7 +41,6 @@ export default function Extensions(props) {
         ...prevState,
         MaxTokensPerWallet: false,
       }));
-      tokenDetails.MaxTokensPerWallet = tokenDetails.supply;
     }
 
     if (checkboxId === "LiquidityTax" && isChecked === true) {
@@ -106,8 +105,19 @@ export default function Extensions(props) {
     tokenDetails.MaxTransactionAmount = event.target.value;
   };
 
+  if (input.MaxTokensPerWallet === true) {
+    tokenDetails.MaxTokensPerWallet = tokenDetails.supply;
+  }
+
+  if (input.MaxTransactionAmount === true) {
+    tokenDetails.MaxTransactionAmount = tokenDetails.supply;
+  }
+
   function show() {
-    console.log(tokenDetails);
+    console.log(
+      tokenDetails.MaxTokensPerWallet,
+      tokenDetails.MaxTransactionAmount
+    );
   }
   return (
     <>
